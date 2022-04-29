@@ -102,6 +102,7 @@ def get_last_5_entries_sales():
     Function to get the last 5 sales entries
     
     """
+    print('Getting the last 5 sales entries...\n')
     sales = SHEET.worksheet('sales')
     columns = []
     for ind in range(1, 7):
@@ -109,9 +110,23 @@ def get_last_5_entries_sales():
         columns.append(column[-5:])
     return columns   
 
+def calculate_stock_data(data):
+    """
+    Function to calculate the average of the last sales entries  and return it
+    as stock data
+    """
+    print('Calculating stock data...\n')
+    new_stock_data = []
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        new_stock_data.append(round(average * 1.1))
+    return new_stock_data
+  
+
 def main():
     """
-    Run all program
+    Run all programme
     """
     data = get_sales_data()
     sales_data = [int(num) for num in data]
@@ -119,9 +134,11 @@ def main():
 
     surplus_data = calculate_surplus_data(sales_data)
     update_worksheet(surplus_data, 'surplus')
+    last_5_entries_sales = get_last_5_entries_sales()
+    stock_data = calculate_stock_data(last_5_entries_sales)
+    update_worksheet(stock_data, 'stock')
+    
 
-print('Welcome to Love Sandwiches Data Automation')
-# main()
+print('Welcome to Love Sandwiches Data Automation!')
+main()
 
-last_5_entries_sales = get_last_5_entries_sales()
-pprint(last_5_entries_sales)
