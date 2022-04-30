@@ -112,7 +112,8 @@ def get_last_5_entries_sales():
 
 def calculate_stock_data(data):
     """
-    Function to calculate the average of the last sales entries  and return it
+    Function to calculate the average of the last
+     sales entries  and return it
     as stock data
     """
     print('Calculating stock data...\n')
@@ -137,8 +138,22 @@ def main():
     last_5_entries_sales = get_last_5_entries_sales()
     stock_data = calculate_stock_data(last_5_entries_sales)
     update_worksheet(stock_data, 'stock')
-    
+    return stock_data
 
 print('Welcome to Love Sandwiches Data Automation!\n')
-main()
+stock_data = main()
 
+def get_stock_values(data):
+    """
+    Function to get stock values and return it to the terminal
+    """
+    headings = SHEET.worksheet('stock').row_values(1)
+    
+    stock_values = {}
+    for key, value in zip(headings, data):
+        stock_values[key] = value
+    return stock_values
+    
+stock_values = get_stock_values(stock_data)
+print(f'Make the following number of sandwiches for the next market\n')
+print(stock_values)
