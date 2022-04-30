@@ -26,12 +26,12 @@ def get_sales_data():
         print('Example: 10, 20, 30, 40, 50, 60\n')
 
         data_str = input('Enter your data here: ')
-
+        print() #Create space in the terminal
         sales_data = data_str.split(',')
-        print(sales_data)
+        print(f'{sales_data}\n')
 
         if validate_data(sales_data):
-            print('Data valid!')
+            print('Data valid!\n')
             break
     return sales_data
 
@@ -81,7 +81,7 @@ def update_worksheet(data, worksheet):
     print(f'Updating {worksheet} data...\n')
     updating_worksheet = SHEET.worksheet(worksheet)
     updating_worksheet.append_row(data)
-    print(f'{worksheet} data updated successfully\n')
+    print(f'{worksheet.capitalize()} data updated successfully\n')
 
 
 def calculate_surplus_data(sales_row):
